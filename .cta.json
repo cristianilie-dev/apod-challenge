@@ -1,0 +1,15 @@
+{
+  "framework": "react",
+  "typescript": true,
+  "projectName": "apod-challenge",
+  "mode": "file-router",
+  "tailwind": true,
+  "packageManager": "npm",
+  "toolchain": "eslint+prettier",
+  "variableValues": {},
+  "git": true,
+  "version": 1,
+  "existingAddOns": [
+    "t3env"
+  ]
+}
