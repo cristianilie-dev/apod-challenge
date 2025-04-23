@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import apodReducer from './apod/apodSlice'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    apod: apodReducer,
+  },
   devTools: import.meta.env.MODE !== 'production',
 })
 
