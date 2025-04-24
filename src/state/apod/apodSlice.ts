@@ -32,6 +32,6 @@ export const apodSlice = createSlice({
   },
 })
 
-export const { setSelectedApod, clearSelectedApod, setSelectedDate } = apodSlice.actions
+export const { setSelectedApod, clearSelectedApod, setSelectedDate, clearSelectedDate } = apodSlice.actions
 
 export default apodSlice.reducer
