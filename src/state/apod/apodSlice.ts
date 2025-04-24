@@ -4,10 +4,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface ApodState {
   selectedApod?: ApodItem
+  selectedDate?: string
 }
 
 const initialState: ApodState = {
-  selectedApod: undefined
+  selectedApod: undefined,
+  selectedDate: undefined
 }
 
 export const apodSlice = createSlice({
@@ -20,9 +22,16 @@ export const apodSlice = createSlice({
     clearSelectedApod: (state) => {
       state.selectedApod = undefined
     },
+
+    setSelectedDate: (state, action: PayloadAction<string>) => {
+      state.selectedDate = action.payload
+    },
+    clearSelectedDate: (state) => {
+      state.selectedDate = undefined
+    },
   },
 })
 
-export const { setSelectedApod, clearSelectedApod } = apodSlice.actions
+export const { setSelectedApod, clearSelectedApod, setSelectedDate } = apodSlice.actions
 
 export default apodSlice.reducer
