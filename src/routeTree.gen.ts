@@ -12,12 +12,26 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as ApodIndexImport } from './routes/apod/index'
+import { Route as ApodDateImport } from './routes/apod/$date'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ApodIndexRoute = ApodIndexImport.update({
+  id: '/apod/',
+  path: '/apod/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ApodDateRoute = ApodDateImport.update({
+  id: '/apod/$date',
+  path: '/apod/$date',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +46,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/apod/$date': {
+      id: '/apod/$date'
+      path: '/apod/$date'
+      fullPath: '/apod/$date'
+      preLoaderRoute: typeof ApodDateImport
+      parentRoute: typeof rootRoute
+    }
+    '/apod/': {
+      id: '/apod/'
+      path: '/apod'
+      fullPath: '/apod'
+      preLoaderRoute: typeof ApodIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apod/$date': typeof ApodDateRoute
+  '/apod': typeof ApodIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apod/$date': typeof ApodDateRoute
+  '/apod': typeof ApodIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/apod/$date': typeof ApodDateRoute
+  '/apod/': typeof ApodIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/apod/$date' | '/apod'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/apod/$date' | '/apod'
+  id: '__root__' | '/' | '/apod/$date' | '/apod/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApodDateRoute: typeof ApodDateRoute
+  ApodIndexRoute: typeof ApodIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApodDateRoute: ApodDateRoute,
+  ApodIndexRoute: ApodIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +115,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/apod/$date",
+        "/apod/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/apod/$date": {
+      "filePath": "apod/$date.tsx"
+    },
+    "/apod/": {
+      "filePath": "apod/index.tsx"
     }
   }
 }
