@@ -1,20 +1,13 @@
-import { useCanGoBack, useRouter } from "@tanstack/react-router";
 
-export function BackButton() {
-  const router = useRouter()
-  const canGoBack = useCanGoBack()
+type BackButtonProps = {
+  onClick: () => void;
+}
 
-  const handleOnClick = () => {
-    if (canGoBack)
-      router.history.back()
-    else
-      router.navigate({ to: '/apod' })
-  }
-
+export function BackButton({ onClick }: BackButtonProps) {
   return (
     <button
       className="btn btn-ghost text-sm flex items-center gap-2"
-      onClick={handleOnClick}
+      onClick={onClick}
     >
       <span className="text-lg">←</span>
       Back
