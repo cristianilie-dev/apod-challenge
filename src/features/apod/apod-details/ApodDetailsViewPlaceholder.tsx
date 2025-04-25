@@ -1,4 +1,3 @@
-
 export default function ApodDetailSkeleton() {
   return (
     <div className="max-w-3xl mx-auto p-4">
@@ -23,7 +22,9 @@ export default function ApodDetailSkeleton() {
 
       {/* Text Placeholder */}
       <div className="prose prose-sm sm:prose lg:prose-lg max-w-none">
-        <h3 className="text-xs uppercase font-semibold opacity-60 mb-2">Details</h3>
+        <h3 className="text-xs uppercase font-semibold opacity-60 mb-2">
+          Details
+        </h3>
         <div className="space-y-2">
           <div className="h-4 bg-base-300 rounded w-full" />
           <div className="h-4 bg-base-300 rounded w-11/12" />

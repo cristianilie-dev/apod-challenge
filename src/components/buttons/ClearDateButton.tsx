@@ -1,7 +1,6 @@
-
 type ClearDateButtonProps = {
   onClick: () => void;
-}
+};
 
 export default function ClearDateButton({ onClick }: ClearDateButtonProps) {
   return (
@@ -12,5 +11,5 @@ export default function ClearDateButton({ onClick }: ClearDateButtonProps) {
     >
       ✕
     </button>
-  )
-};
+  );
+}
