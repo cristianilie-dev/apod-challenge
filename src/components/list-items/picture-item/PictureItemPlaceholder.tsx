@@ -1,4 +1,3 @@
-
 export default function PictureItemSkeleton() {
   return (
     <li className="border-none">
