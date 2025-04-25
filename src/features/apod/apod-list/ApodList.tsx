@@ -13,10 +13,11 @@ import {
   incrementWeekOffset,
   setSelectedApod,
 } from '@/state/apod/apodSlice';
+import Error from '@/components/ui/Error';
 
 export default function ApodList() {
   // State & Hooks
-  const { data, isFetching, weekOffset, isDateSelected } = useApodList();
+  const { data, isFetching, isError, weekOffset, isDateSelected } = useApodList();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ export default function ApodList() {
   const handleNextWeek = () => dispatch(decrementWeekOffset());
 
   // Render
+  if (isError) return <Error />;
   return (
     <>
       <ApodListDatePicker />

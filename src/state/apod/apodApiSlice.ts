@@ -12,7 +12,7 @@ export const apodApiSlice = createApi({
   reducerPath: 'apodApi',
 
   baseQuery: fetchBaseQuery({
-    baseUrl: env.VITE_APOD_BASE_URL,
+    baseUrl: env.VITE_NASA_BASE_URL,
   }),
 
   endpoints: (builder) => ({

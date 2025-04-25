@@ -4,11 +4,14 @@ import { useSelector } from 'react-redux';
 import type { ApodItem } from '@/types/Apod';
 import type { RootState } from '@/state/store';
 import { useGetApodQuery } from '@/state/apod/apodApiSlice';
+import type { SerializedError } from '@reduxjs/toolkit';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 type UseApodDetailsType = {
   currentApod: ApodItem | undefined;
   isFetching: boolean;
   isError: boolean;
+  error: FetchBaseQueryError | SerializedError | undefined;
 };
 
 export function useApodDetails(): UseApodDetailsType {
@@ -22,6 +25,7 @@ export function useApodDetails(): UseApodDetailsType {
     data: fetchedApod,
     isFetching,
     isError,
+    error,
   } = useGetApodQuery(
     { date: paramDate },
     {
@@ -34,5 +38,6 @@ export function useApodDetails(): UseApodDetailsType {
     currentApod,
     isFetching,
     isError,
+    error
   };
 }
