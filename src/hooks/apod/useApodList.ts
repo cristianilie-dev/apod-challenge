@@ -3,44 +3,39 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/state/store';
 import type { ApodItem } from '@/types/Apod';
-import { formatApiDate, getOneWeekAgoDate } from '@/utils/date';
+import { calculateStartEndDate, formatApiDate } from '@/utils/date';
 import { useGetApodQuery } from '@/state/apod/apodApiSlice';
 
 type UseApodListReturnType = {
   data: Array<ApodItem> | undefined;
   isFetching: boolean;
-  currentDate: Date | undefined;
-  queryDate: string | undefined;
+  weekOffset: number;
+  isDateSelected: boolean;
 };
 
 export const useApodList = (): UseApodListReturnType => {
-  const { date: queryDate } = useSearch({ from: '/apod/' });
-  const selectedDateStr = useSelector(
-    (state: RootState) => state.apod.selectedDate,
-  );
+  const selectedDateStr = useSelector((state: RootState) => state.apod.selectedDate);
+  const weekOffset = useSelector((state: RootState) => state.apod.weekOffset);
 
-  // Convert currentDate to object
-  const currentDateStr = selectedDateStr ?? queryDate;
-  const currentDate = useMemo(
-    () => (currentDateStr ? new Date(currentDateStr) : undefined),
-    [currentDateStr],
-  );
+  // Set startDate and endDate using weekOffset
+  const { startDate, endDate } = useMemo(() => calculateStartEndDate(weekOffset), [weekOffset]);
 
   // Format the APOD API call params
   const formattedApodParams = useMemo(
     () =>
-      currentDateStr
-        ? { date: currentDateStr }
-        : { start_date: formatApiDate(getOneWeekAgoDate()) },
-    [currentDateStr],
+      selectedDateStr
+        ? { date: selectedDateStr }
+        : { start_date: startDate, end_date: endDate },
+    [selectedDateStr, startDate, endDate],
   );
 
   const { data, isFetching } = useGetApodQuery(formattedApodParams);
+  const formattedData = useMemo(() => data?.slice().reverse(), [data]);
 
   return {
-    data,
+    data: formattedData,
     isFetching,
-    currentDate,
-    queryDate,
+    weekOffset,
+    isDateSelected: !!selectedDateStr
   };
 };
