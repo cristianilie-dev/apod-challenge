@@ -1,38 +1,48 @@
-import { createFileRoute, useParams } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  useCanGoBack,
+  useRouter,
+} from '@tanstack/react-router';
+
+import { ApodDetailView } from '@/features/apod/apod-details/ApodDetailView';
+import ApodDetailSkeleton from '@/features/apod/apod-details/ApodDetailsViewPlaceholder';
+import { BackButton } from '@/components/buttons/BackButton';
+import { useApodDetails } from '@/hooks/apod/useApodDetails';
 
 export const Route = createFileRoute('/apod/$date')({
-  component: RouteComponent,
-})
+  component: ApodDateComponent,
+});
 
-import { useSelector } from 'react-redux';
-import type { RootState } from '@/state/store';
-import { ApodDetailView } from '@/features/apod/ApodDetailView';
-import { useGetApodByDateQuery } from '@/state/apod/apodApiSlice';
+export function ApodDateComponent() {
+  // State
+  const router = useRouter();
+  const canGoBack = useCanGoBack();
+  const { currentApod, isError, isFetching } = useApodDetails();
 
-export function RouteComponent() {
-  const selectedApod = useSelector((state: RootState) => state.apod.selectedApod);
+  // Events
+  const handleOnClick = () => {
+    if (canGoBack) router.history.back();
+    else router.navigate({ to: '/apod' });
+  };
 
-  // Only fetch if we don't have it in the store
-  const { date: paramDate } = useParams({ from: '/apod/$date' });
-  const { data: fetchedApod, isLoading, isError } = useGetApodByDateQuery({ date: paramDate }, {
-    skip: !!selectedApod,
-  });
-
-  const currentApod = selectedApod ?? fetchedApod;
-
-  if (isLoading) return <div className="flex items-center justify-center min-h-[100dvh] min-w-[100dvw] px-4 text-center">
-    <div>Loading...</div>
-  </div>;
+  // Render
+  if (isFetching) return <ApodDetailSkeleton />;
   if (!currentApod || isError) return <div>No data available</div>;
 
-  const { date, explanation, title, hdurl } = currentApod
+  const { date, explanation, title, hdurl, thumbnail_url } = currentApod;
 
   return (
-    <ApodDetailView
-      title={title}
-      date={date}
-      explanation={explanation}
-      hdurl={hdurl}
-    />
+    <>
+      <div className="max-w-3xl mx-auto px-4 pt-4">
+        <BackButton onClick={handleOnClick} />
+      </div>
+
+      <ApodDetailView
+        title={title}
+        date={date}
+        explanation={explanation}
+        url={hdurl || thumbnail_url}
+      />
+    </>
   );
 }
