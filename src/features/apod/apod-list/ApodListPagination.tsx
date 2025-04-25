@@ -1,13 +1,18 @@
-import { PaginationButton } from "@/components/buttons/PaginationButton";
+import { PaginationButton } from '@/components/buttons/PaginationButton';
 
 type ApodPaginationProps = {
   onPrevClick: () => void;
   onNextClick: () => void;
   prevButtonDisabled: boolean;
   nextButtonDisabled: boolean;
-}
+};
 
-export default function ApodListPagination({ onPrevClick, onNextClick, prevButtonDisabled, nextButtonDisabled }: ApodPaginationProps) {
+export default function ApodListPagination({
+  onPrevClick,
+  onNextClick,
+  prevButtonDisabled,
+  nextButtonDisabled,
+}: ApodPaginationProps) {
   return (
     <div className="flex justify-center gap-4 py-4">
       <PaginationButton onClick={onPrevClick} disabled={prevButtonDisabled}>
@@ -18,5 +23,5 @@ export default function ApodListPagination({ onPrevClick, onNextClick, prevButto
         Next Week →
       </PaginationButton>
     </div>
-  )
+  );
 }

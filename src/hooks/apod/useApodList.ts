@@ -14,11 +14,16 @@ type UseApodListReturnType = {
 };
 
 export const useApodList = (): UseApodListReturnType => {
-  const selectedDateStr = useSelector((state: RootState) => state.apod.selectedDate);
+  const selectedDateStr = useSelector(
+    (state: RootState) => state.apod.selectedDate,
+  );
   const weekOffset = useSelector((state: RootState) => state.apod.weekOffset);
 
   // Set startDate and endDate using weekOffset
-  const { startDate, endDate } = useMemo(() => calculateStartEndDate(weekOffset), [weekOffset]);
+  const { startDate, endDate } = useMemo(
+    () => calculateStartEndDate(weekOffset),
+    [weekOffset],
+  );
 
   // Format the APOD API call params
   const formattedApodParams = useMemo(
@@ -36,6 +41,6 @@ export const useApodList = (): UseApodListReturnType => {
     data: formattedData,
     isFetching,
     weekOffset,
-    isDateSelected: !!selectedDateStr
+    isDateSelected: !!selectedDateStr,
   };
 };

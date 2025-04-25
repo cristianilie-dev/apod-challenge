@@ -16,4 +16,4 @@ export const calculateStartEndDate = (weekOffset: number = 0) => {
     startDate: formatApiDate(start),
     endDate: formatApiDate(end),
   };
-}
+};

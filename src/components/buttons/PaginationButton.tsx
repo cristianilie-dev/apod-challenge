@@ -5,7 +5,12 @@ type PaginationButtonProps = {
   children?: React.ReactNode;
 };
 
-export function PaginationButton({ label, onClick, disabled, children }: PaginationButtonProps) {
+export function PaginationButton({
+  label,
+  onClick,
+  disabled,
+  children,
+}: PaginationButtonProps) {
   return (
     <button
       className="btn text-sm sm:text-base"

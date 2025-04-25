@@ -1,14 +1,19 @@
-import ClearDateButton from "@/components/buttons/ClearDateButton";
-import DatePicker from "@/components/date-pickers/DatePicker";
-import { clearSelectedDate, setSelectedDate } from "@/state/apod/apodSlice";
-import type { AppDispatch, RootState } from "@/state/store";
-import { formatApiDate } from "@/utils/date";
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '@/state/store';
+import ClearDateButton from '@/components/buttons/ClearDateButton';
+import DatePicker from '@/components/date-pickers/DatePicker';
+import { clearSelectedDate, setSelectedDate } from '@/state/apod/apodSlice';
+import { formatApiDate } from '@/utils/date';
 
 export function ApodListDatePicker() {
-  const selectedDateStr = useSelector((state: RootState) => state.apod.selectedDate);
-  const selectedDateObj = useMemo(() => (selectedDateStr ? new Date(selectedDateStr) : undefined), [selectedDateStr]);
+  const selectedDateStr = useSelector(
+    (state: RootState) => state.apod.selectedDate,
+  );
+  const selectedDateObj = useMemo(
+    () => (selectedDateStr ? new Date(selectedDateStr) : undefined),
+    [selectedDateStr],
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   const handleDateChange = (date?: Date) => {
@@ -27,5 +32,5 @@ export function ApodListDatePicker() {
 
       {selectedDateObj && <ClearDateButton onClick={handleClearDate} />}
     </div>
-  )
+  );
 }

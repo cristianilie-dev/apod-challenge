@@ -9,7 +9,5 @@
   "variableValues": {},
   "git": true,
   "version": 1,
-  "existingAddOns": [
-    "t3env"
-  ]
+  "existingAddOns": ["t3env"]
 }

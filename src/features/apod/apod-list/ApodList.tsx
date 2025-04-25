@@ -1,23 +1,18 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useDispatch } from 'react-redux';
+import ApodListPagination from './ApodListPagination';
+import { ApodListDatePicker } from './ApodListDatePicker';
 import type { AppDispatch } from '@/state/store';
 import type { ApodItem } from '@/types/Apod';
-import ClearDateButton from '@/components/buttons/ClearDateButton';
-import DatePicker from '@/components/date-pickers/DatePicker';
 import PictureItem from '@/components/list-items/picture-item/PictureItem';
 import PictureList from '@/components/lists/picture-list/PictureList';
 import PictureListPlaceholder from '@/components/lists/picture-list/PictureListPlaceholder';
 import { useApodList } from '@/hooks/apod/useApodList';
 import {
-  clearSelectedDate,
   decrementWeekOffset,
   incrementWeekOffset,
   setSelectedApod,
-  setSelectedDate,
 } from '@/state/apod/apodSlice';
-import { formatApiDate } from '@/utils/date';
-import ApodListPagination from './ApodListPagination';
-import { ApodListDatePicker } from './ApodListDatePicker';
 
 export default function ApodList() {
   // State & Hooks
@@ -61,7 +56,6 @@ export default function ApodList() {
         <ApodListPagination
           onPrevClick={handlePrevWeek}
           prevButtonDisabled={isFetching}
-
           onNextClick={handleNextWeek}
           nextButtonDisabled={isFetching || weekOffset == 0}
         />

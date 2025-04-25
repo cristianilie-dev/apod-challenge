@@ -28,8 +28,9 @@ export function ApodDetailView({
           )}
 
           <div
-            className={`card-body justify-end text-white bg-opacity-60 ${url ? 'rounded-b-lg' : 'rounded'
-              }`}
+            className={`card-body justify-end text-white bg-opacity-60 ${
+              url ? 'rounded-b-lg' : 'rounded'
+            }`}
           >
             <h2 className="card-title text-xl sm:text-3xl">{title}</h2>
             <p className="text-xs sm:text-sm opacity-80">{date}</p>

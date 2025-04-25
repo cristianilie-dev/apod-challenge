@@ -17,7 +17,8 @@ function ApodComponent() {
         Astronomy Picture of the Day
       </h1>
       <p className="mb-4 text-xs sm:text-sm opacity-70 text-center">
-        Discover the wonders of the universe through stunning space imagery, updated daily.
+        Discover the wonders of the universe through stunning space imagery,
+        updated daily.
       </p>
 
       <ApodList />
