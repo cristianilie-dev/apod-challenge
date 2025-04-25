@@ -1,4 +1,3 @@
-
 export type ApodItem = {
   date: string;
   explanation: string;
@@ -7,4 +6,5 @@ export type ApodItem = {
   service_version: string;
   title: string;
   url: string;
-}
+  thumbnail_url?: string;
+};
